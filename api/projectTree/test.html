@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        <input type="email" id="email" placeholder="email" ></br>
+        <input type="password" id="password" placeholder="password"></br>
+        <input type="button" onclick="result()"" value="fetch data" />
+    </form>
+</body>
+</html>
+<script>
+    function result(){
+        const data = {
+            'email' : document.getElementById('email').value,
+            'password' : document.getElementById('password').value
+        };
+        const other_params = {
+            headers : { "content-type" : "application/json; charset=UTF-8" },
+            body : data,
+            method : "POST",
+            mode : "cors"
+        };
+        var url="http://site.deepanshugupta717.online/rest_api/loginRegister.php";
+
+        fetch(url, other_params)
+        .then(function(response) {
+            if (response.ok) {
+                console.log(response.json());
+                return response.json();
+            } else {
+                throw new Error("Could not reach the API: " + response.statusText);
+            }
+        }).then(function(data) {
+            console.log(data);
+            document.getElementById("message").innerHTML = data.encoded;
+        }).catch(function(error) {
+            console.log(error);
+            document.getElementById("message").innerHTML = error.message;
+        });
+    return true;
+    }
+</script>
